@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class OrderService {
-  static const baseUrl = 'http://10.0.2.2:8000/api';
+  static const baseUrl = 'https://vetconnectmob-production.up.railway.app/api';
 
   // Ganti ke SharedPreferences
   static Future<String?> _token() async {
@@ -18,10 +18,7 @@ class OrderService {
 
     final r = await http.get(
       Uri.parse('$baseUrl/bookings'),
-      headers: {
-        'Authorization': 'Bearer $t',
-        'Accept': 'application/json',
-      },
+      headers: {'Authorization': 'Bearer $t', 'Accept': 'application/json'},
     );
 
     if (r.statusCode >= 200 && r.statusCode < 300) {
@@ -39,10 +36,7 @@ class OrderService {
 
     final r = await http.get(
       Uri.parse('$baseUrl/bookings/$id'),
-      headers: {
-        'Authorization': 'Bearer $t',
-        'Accept': 'application/json',
-      },
+      headers: {'Authorization': 'Bearer $t', 'Accept': 'application/json'},
     );
 
     if (r.statusCode >= 200 && r.statusCode < 300) {
