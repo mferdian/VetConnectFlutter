@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/pages/report_page.dart';
+import 'package:flutter_application_1/pages/my_order_page.dart';
 import 'package:flutter_application_1/pages/profile_page.dart';
 import 'package:flutter_application_1/pages/notification_page.dart';
 
@@ -23,7 +23,7 @@ class CustomBottomNavBar extends StatelessWidget {
         page = const HomePage();
         break;
       case 1:
-        page = const ReportsPage();
+        page = const MyOrderPage();
         break;
       case 2:
         page = NotificationPage();

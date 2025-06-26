@@ -19,53 +19,56 @@ class BookAppointmentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(BookAppointmentController(
-      doctorId: doctorId,
-      doctorPrice: doctorPrice,
-    ));
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Booking untuk $doctorName'),
-        centerTitle: true,
+    return GetBuilder<BookAppointmentController>(
+      init: BookAppointmentController(
+        doctorId: doctorId,
+        doctorPrice: doctorPrice,
       ),
-      body: Obx(() {
-        return Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              _buildDropdownTanggal(c),
-              const SizedBox(height: 12),
-              _buildDropdownWaktu(c),
-              const SizedBox(height: 12),
-              TextField(
-                controller: c.keluhanController,
-                decoration: const InputDecoration(
-                  labelText: 'Keluhan',
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'Total Harga: Rp $doctorPrice',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: c.isLoading.value ? null : c.bookAppointment,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF497D74),
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-                child: c.isLoading.value
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text('Booking Sekarang'),
-              ),
-            ],
+      builder: (c) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Booking untuk $doctorName'),
+            centerTitle: true,
           ),
+          body: Obx(() {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildDropdownTanggal(c),
+                  const SizedBox(height: 12),
+                  _buildDropdownWaktu(c),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: c.keluhanController,
+                    decoration: const InputDecoration(
+                      labelText: 'Keluhan',
+                      border: OutlineInputBorder(),
+                    ),
+                    maxLines: 3,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Total Harga: Rp $doctorPrice',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: c.isLoading.value ? null : c.bookAppointment,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF497D74),
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: c.isLoading.value
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text('Booking Sekarang'),
+                  ),
+                ],
+              ),
+            );
+          }),
         );
-      }),
+      },
     );
   }
 

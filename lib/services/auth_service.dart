@@ -1,13 +1,13 @@
 // services/auth_service.dart
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static const String baseUrl = 'http://10.0.2.2:8000/api';
 
   static Future<void> logout() async {
-    final box = GetStorage();
-    final token = box.read('token');
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
 
     if (token == null) throw Exception('Token tidak ditemukan');
 
@@ -20,9 +20,23 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      box.remove('token');
+      await prefs.remove('token');
+      await prefs.remove('user_name');
+      await prefs.remove('user_id');
     } else {
       throw Exception('Logout gagal: ${response.statusCode}');
     }
+  }
+
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  static Future<void> clearUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('user_name');
+    await prefs.remove('user_id');
   }
 }
