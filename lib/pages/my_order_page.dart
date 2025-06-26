@@ -13,6 +13,12 @@ class MyOrderPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pesanan Saya'),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.offNamed('/profile'); // Navigasi langsung ke halaman profil
+          },
+        ),
       ),
       body: Obx(() {
         if (c.isLoading.value) {
@@ -30,7 +36,7 @@ class MyOrderPage extends StatelessWidget {
               child: ListTile(
                 title: Text(o.vetNama),
                 subtitle: Text(
-                  "Tanggal: ${o.vetDate.substring(0,10)}\nStatus: ${o.status}",
+                  "Tanggal: ${o.vetDate.substring(0, 10)}\nStatus: ${o.status}",
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () => Get.toNamed('/order-detail', arguments: o.id),

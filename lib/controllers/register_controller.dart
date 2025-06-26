@@ -102,11 +102,11 @@ class RegisterController extends GetxController {
         } else {
           final errorMessage = data['message'] ?? 'Terjadi kesalahan saat mendaftar';
           Get.defaultDialog(
-            title: 'Registrasi Gagal',
+            title: 'Registrasi Berhasil',
             middleText: errorMessage,
             textConfirm: "Tutup",
             confirmTextColor: Colors.white,
-            buttonColor: Colors.red,
+            buttonColor: Colors.green,
             onConfirm: () => Get.back(),
           );
         }

@@ -1,4 +1,3 @@
-// controllers/profile_controller.dart
 import 'package:get/get.dart';
 import 'package:flutter_application_1/models/profile_model.dart';
 import 'package:http/http.dart' as http;
@@ -10,8 +9,8 @@ class ProfileController extends GetxController {
   var isLoading = true.obs;
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     loadProfile();
   }
 
@@ -20,6 +19,7 @@ class ProfileController extends GetxController {
       isLoading.value = true;
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
+      print('Token digunakan di loadProfile: $token'); // untuk debug
 
       final response = await http.get(
         Uri.parse('http://10.0.2.2:8000/api/profile'),
@@ -33,10 +33,10 @@ class ProfileController extends GetxController {
         final data = jsonDecode(response.body);
         profile.value = ProfileModel.fromJson(data['data']);
       } else {
-        print('Failed to fetch profile: ${response.statusCode}');
+        print('Gagal mengambil profil: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      print('Error saat ambil profil: $e');
     } finally {
       isLoading.value = false;
     }

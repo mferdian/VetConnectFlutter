@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/doctor_detail_page.dart';
+import 'package:flutter_application_1/pages/my_order_page.dart';
 import 'package:get/get.dart';
 import '../controllers/profile_controller.dart';
 import '../models/doctor.dart';
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                 _buildServiceIcon(Icons.assignment_outlined, 'Report', () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const ReportsPage()),
+                    MaterialPageRoute(builder: (_) => const MyOrderPage()),
                   );
                 }),
               ],

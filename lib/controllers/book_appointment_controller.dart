@@ -42,21 +42,27 @@ class BookAppointmentController extends GetxController {
 
     isLoading.value = true;
 
-    final success = await BookingService.bookAppointment(
-      vetId: doctorId,
-      vetDateId: selectedTanggal.value!.tanggalId,
-      vetTimeId: selectedJam.value!.waktuId,
-      keluhan: keluhanController.text,
-      totalHarga: doctorPrice,
-      metodePembayaran: "cash",
-    );
+    try {
+      final success = await BookingService.bookAppointment(
+        vetId: doctorId,
+        vetDateId: selectedTanggal.value!.tanggalId,
+        vetTimeId: selectedJam.value!.waktuId,
+        keluhan: keluhanController.text,
+        totalHarga: doctorPrice,
+        metodePembayaran: "cash",
+      );
 
-    isLoading.value = false;
+      print('Booking success status: $success');
 
-    if (success) {
-      Get.offAllNamed('/my-orders');
-    } else {
-      Get.snackbar("Gagal", "Booking gagal. Silakan coba lagi.");
+      if (success) {
+        Get.offAllNamed('/my-orders');
+      } else {
+        Get.snackbar("Gagal", "Booking gagal. Silakan coba lagi.");
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Terjadi kesalahan saat booking");
+    } finally {
+      isLoading.value = false;
     }
   }
 }
