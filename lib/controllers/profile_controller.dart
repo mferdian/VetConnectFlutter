@@ -22,7 +22,9 @@ class ProfileController extends GetxController {
       print('Token digunakan di loadProfile: $token'); // untuk debug
 
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:8000/api/profile'),
+        Uri.parse(
+          'https://vetconnectmob-production.up.railway.app/api/profile',
+        ),
         headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',

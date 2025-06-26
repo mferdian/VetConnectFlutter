@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl =
+      'https://vetconnectmob-production.up.railway.app/api';
 
   static Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
@@ -13,10 +14,7 @@ class AuthService {
 
     final response = await http.post(
       Uri.parse('$baseUrl/logout'),
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
     );
 
     if (response.statusCode == 200) {

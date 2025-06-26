@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/models/jadwal.dart';
 
 class BookingService {
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
+  static const String baseUrl =
+      'https://vetconnectmob-production.up.railway.app/api';
 
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -17,10 +18,7 @@ class BookingService {
 
     final response = await http.get(
       Uri.parse('$baseUrl/vets/$vetId/jadwal'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-      },
+      headers: {'Authorization': 'Bearer $token', 'Accept': 'application/json'},
     );
 
     if (response.statusCode == 200) {
@@ -44,22 +42,24 @@ class BookingService {
       final token = await getToken();
       if (token == null) throw Exception("Token tidak ditemukan");
 
-      final response = await http.post(
-        Uri.parse('$baseUrl/bookings'),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode({
-          "vet_id": vetId,
-          "vet_date_id": vetDateId,
-          "vet_time_id": vetTimeId,
-          "keluhan": keluhan,
-          "total_harga": totalHarga,
-          "metode_pembayaran": metodePembayaran,
-        }),
-      ).timeout(const Duration(seconds: 10));
+      final response = await http
+          .post(
+            Uri.parse('$baseUrl/bookings'),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode({
+              "vet_id": vetId,
+              "vet_date_id": vetDateId,
+              "vet_time_id": vetTimeId,
+              "keluhan": keluhan,
+              "total_harga": totalHarga,
+              "metode_pembayaran": metodePembayaran,
+            }),
+          )
+          .timeout(const Duration(seconds: 10));
 
       print("Status Code: ${response.statusCode}");
       print("Response Body: ${response.body}");
